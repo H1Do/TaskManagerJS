@@ -3,8 +3,8 @@ import { saveTasks, getTasks } from './storage.js';
 export function initializeTaskManager() {
   const taskList = document.querySelector('.task-list');
   const taskForm = document.forms['task-form'];
-
   const tasks = getTasks();
+
   createAllTaskElements(tasks, taskList);
 
   taskForm.addEventListener('submit', (event) => {
@@ -13,7 +13,6 @@ export function initializeTaskManager() {
   })
 
   window.addEventListener('beforeunload', (e) => {
-    e.preventDefault();
     saveTasks(tasks);
   })
 }
@@ -27,7 +26,7 @@ function createNewTask(taskForm, tasks, taskList) {
   }
   tasks.push(newTask);
   descriptionElement.value = '';
-  
+
   createTaskElement(
     taskList,
     newTask,
@@ -61,7 +60,8 @@ function createTaskElement(taskListElement, task, deleteCallback) {
   removeButtonElement.className = 'task-remove';
 
   descriptionElement.textContent = task.description;
-  timeElement.dateTime = task.date;
+  timeElement.dateTime = getFormattedDate(task.date);
+  timeElement.textContent = getFormattedDate(task.date);
   markButtonElement.textContent = 'Mark as completed';
   removeButtonElement.textContent = 'Remove task';
 
@@ -77,4 +77,14 @@ function createTaskElement(taskListElement, task, deleteCallback) {
 
   taskElement.append(descriptionElement, timeElement, markButtonElement, removeButtonElement)
   taskListElement.append(taskElement);
+}
+
+function getFormattedDate(timestamp) {
+  const date = new Date(timestamp);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`
 }
