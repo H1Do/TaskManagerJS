@@ -8,8 +8,21 @@
   </head>
   <body>
     <div id="app">
-      
+      <div class="container">
+        <form name="task-form" class="task-form">
+          <input type="text" name="task-form-description" required>
+          <button type="submit" name="task-form-button">Add</button>
+        </form>
+        <ul class="task-list">
+          <!-- <li class="task-item">
+            <p class="task-description">Task description</p>
+            <time datetime="04.03.2003" class="task-date">04.03.2003</time>
+            <button class="task-mark">
+            <button class="task-remove">Remove</button>
+          </li> -->
+        </ul>
+      </div>
     </div>
-    <script src="index.js"></script>
+    <script src="index.js" type="module"></script>
   </body>
 </html>
