@@ -10,15 +10,29 @@
     <div id="app">
       <div class="container">
         <form name="task-form" class="task-form">
-          <input type="text" name="task-form-description" required>
-          <button type="submit" name="task-form-button">Add</button>
+          <input
+            type="text"
+            name="task-form-description"
+            class="task-form-description"
+            maxlength="50"
+            required
+          />
+          <button
+            type="submit"
+            name="task-form-button"
+            class="task-form-button"
+          >
+            <image src="./assets/icons/plus-large-icon.svg" width="40" height="40">
+          </button>
         </form>
         <ul class="task-list">
           <!-- <li class="task-item">
             <p class="task-description">Task description</p>
             <time datetime="04-03-2003" class="task-date">04-03-2003</time>
-            <button class="task-mark">Mark as completed</button>
-            <button class="task-remove">Remove task</button>
+            <div class="task-buttons">
+              <button class="task-mark">Mark as completed</button>
+              <button class="task-remove">Remove task</button>
+            </div>
           </li> -->
         </ul>
       </div>

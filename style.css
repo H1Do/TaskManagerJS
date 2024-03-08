@@ -1,1 +1,126 @@
-@import url(/assets/styles/normalize.css);
+@import url(./assets/styles/normalize.css);
+@import url(./assets/styles/fonts.css);
+
+html {
+  --main-color: aquamarine;
+  --second-color: rgb(255, 0, 136);
+  --transition-delay: 0.2s;
+  
+  font-family: 'Roboto', sans-serif;
+}
+
+* {
+  transition: all var(--transition-delay);
+}
+
+svg *[fill] {
+  fill: currentColor;
+}
+
+svg *[stroke] {
+  stroke: currentColor;
+}
+
+svg * {
+  transition-duration: var(--transition-duration);
+  transition-property: fill, stroke;
+}
+
+button {
+  background-color: #fff;
+  border: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  margin: 0 auto;
+  min-height: 100svh;
+  width: max(50%, 600px);
+
+  padding: 50px;
+}
+
+.task-form, .task-form-description, .task-form-button {
+  border: 1px solid black;
+  padding: 15px 20px;
+  border-radius: 20px;
+}
+
+.task-form {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+  padding: 20px;
+}
+
+.task-form-description {
+  border-radius: 10px 0 0 10px;
+  width: 100%;
+}
+
+.task-form-description:focus {
+  outline: none;
+}
+
+.task-form-button {
+  border-radius: 0 10px 10px 0;
+  border-left: none;
+}
+
+.task-form-button:hover, .task-form-description:hover {
+  background-color: var(--main-color);
+}
+
+.task-list {
+  width: 100%;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 10px;
+  padding: 10px;
+}
+
+.task-item:not(:last-child) {
+  border-bottom: 1px solid #000;
+}
+
+.task-description {
+  grid-column: span 3;
+}
+
+.task-date {
+  font-size: 0.875em;
+  color: gray;
+}
+
+.task-buttons {
+  grid-column: 3 / 4;
+  justify-self: end;
+}
+
+.task-mark:hover * {
+  fill: var(--main-color);
+  stroke: var(--main-color);
+}
+
+.task-remove:hover * {
+  fill: var(--second-color);
+  stroke: var(--second-color);
+}
+
+.task-completed * {
+  color: var(--second-color);
+  fill: var(--second-color);
+  stroke: var(--second-color);
+}
+
+.task-completed .task-description {
+  text-decoration: line-through;
+  font-weight: 700;
+}
