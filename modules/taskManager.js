@@ -19,7 +19,7 @@ export function initializeTaskManager() {
   const taskForm = document.forms['task-form'];
   const tasks = getTasks();
 
-  createAllTaskElements(tasks, taskList);
+  renderAllTasks(tasks, taskList);
 
   taskForm.addEventListener('submit', handleTaskFormSubmit.bind(null, tasks, taskList));
 
@@ -35,13 +35,12 @@ function handleTaskFormSubmit(tasks, taskList, event) {
     date: Date.now(),
     completed: false,
   }
+  renderAllTasks(tasks, taskList);
   tasks.push(newTask);
-
-  createTaskElement(
-    taskList,
+  taskList.append(createTaskElement(
     newTask,
     handleTaskDelete.bind(null, tasks, newTask),
-  )
+  ));
 }
 
 function handleTaskDelete(tasks, taskToDetete) {
@@ -51,15 +50,16 @@ function handleTaskDelete(tasks, taskToDetete) {
   }
 }
 
-function createAllTaskElements(tasks, taskList) {
+function renderAllTasks(tasks, taskList) {
+  taskList.innerHTML = '';
   tasks.forEach((task) => {
-    createTaskElement(taskList, task, (task) => {
+    taskList.append(createTaskElement(task, (task) => {
       tasks.splice(tasks.indexOf(task), 1);
-    })
+    }))
   });
 }
 
-function createTaskElement(taskListElement, task, deleteCallback) {
+function createTaskElement(task, deleteCallback) {
   const taskElement = document.createElement('li');
   taskElement.classList.add('task-item');
   if (task.completed) {
@@ -96,5 +96,6 @@ function createTaskElement(taskListElement, task, deleteCallback) {
 
   buttonsElement.append(markButtonElement, removeButtonElement);
   taskElement.append(descriptionElement, timeElement, buttonsElement)
-  taskListElement.append(taskElement);
+
+  return taskElement;
 }
