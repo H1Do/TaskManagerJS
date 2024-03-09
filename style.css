@@ -81,6 +81,7 @@ button {
 }
 
 .task-form-button:hover,
+.task-form-button:focus,
 .task-form-description:hover,
 .task-form-description:focus,
 .task-form-scope:hover,
@@ -94,6 +95,7 @@ button {
 }
 
 .task-item {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 10px;
@@ -158,7 +160,17 @@ button {
   stroke: var(--second-color);
 }
 
-.task-completed .task-description {
+.task-completed::after {
+  content: '';
+  position: absolute;
+  background-color: var(--second-color);
+  border-radius: 10px;
+  top: 40%;
+  width: 100%;
+  height: 5px;
+}
+
+/* .task-completed .task-description {
   text-decoration: line-through;
   font-weight: 700;
-}
+} */

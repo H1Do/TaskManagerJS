@@ -51,7 +51,7 @@ function handleTaskDelete(tasks, taskToDetete) {
 
 function renderAllTasks(tasks, taskList) {
   tasks.sort((firstTask, secondTask) => (firstTask.scope).localeCompare(secondTask.scope));
-  
+
   taskList.innerHTML = '';
   tasks.forEach((task) => {
     taskList.append(createTaskElement(task, handleTaskDelete.bind(null, tasks, task)))
