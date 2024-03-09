@@ -17,6 +17,14 @@
             maxlength="50"
             required
           />
+          <select name="task-form-scope" class="task-form-scope" required>
+            <option class="task-form-scope-none" value="" selected disabled>Scope</option>
+            <option class="task-form-scope-life" value="life">#life</option>
+            <option class="task-form-scope-hobby" value="hobby">#hobby</option>
+            <option class="task-form-scope-work" value="work">#work</option>
+            <option class="task-form-scope-study" value="study">#study</option>
+            <option class="task-form-scope-other" value="other">#other</option>
+          </select>
           <button
             type="submit"
             name="task-form-button"
@@ -27,7 +35,8 @@
         </form>
         <ul class="task-list">
           <!-- <li class="task-item">
-            <p class="task-description">Task description</p>
+            <div class="task-description">Task description</div>
+            <div class="task-scope task-scope-something">#something</div>
             <time datetime="04-03-2003" class="task-date">04-03-2003</time>
             <div class="task-buttons">
               <button class="task-mark">Mark as completed</button>

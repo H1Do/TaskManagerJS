@@ -30,17 +30,16 @@ function handleTaskFormSubmit(tasks, taskList, event) {
   event.preventDefault();
 
   const descriptionElement = event.target.elements['task-form-description'];
+  const selectElement = event.target.elements['task-form-scope'];
   const newTask = {
     description: descriptionElement.value,
     date: Date.now(),
     completed: false,
+    scope: selectElement.value,
   }
-  renderAllTasks(tasks, taskList);
+
   tasks.push(newTask);
-  taskList.append(createTaskElement(
-    newTask,
-    handleTaskDelete.bind(null, tasks, newTask),
-  ));
+  renderAllTasks(tasks, taskList);
 }
 
 function handleTaskDelete(tasks, taskToDetete) {
@@ -51,11 +50,11 @@ function handleTaskDelete(tasks, taskToDetete) {
 }
 
 function renderAllTasks(tasks, taskList) {
+  tasks.sort((firstTask, secondTask) => (firstTask.scope).localeCompare(secondTask.scope));
+  
   taskList.innerHTML = '';
   tasks.forEach((task) => {
-    taskList.append(createTaskElement(task, (task) => {
-      tasks.splice(tasks.indexOf(task), 1);
-    }))
+    taskList.append(createTaskElement(task, handleTaskDelete.bind(null, tasks, task)))
   });
 }
 
@@ -69,6 +68,10 @@ function createTaskElement(task, deleteCallback) {
   const descriptionElement = document.createElement('div');
   descriptionElement.className = 'task-description';
   descriptionElement.textContent = task.description;
+
+  const scopeElement = document.createElement('div');
+  scopeElement.className = `task-scope task-scope-${task.scope}`;
+  scopeElement.textContent = `#${task.scope}`;
 
   const timeElement = document.createElement('time');
   timeElement.className = 'task-date';
@@ -95,7 +98,7 @@ function createTaskElement(task, deleteCallback) {
   });
 
   buttonsElement.append(markButtonElement, removeButtonElement);
-  taskElement.append(descriptionElement, timeElement, buttonsElement)
+  taskElement.append(descriptionElement, scopeElement, timeElement, buttonsElement)
 
   return taskElement;
 }

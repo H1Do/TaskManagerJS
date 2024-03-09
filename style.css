@@ -5,7 +5,7 @@ html {
   --main-color: aquamarine;
   --second-color: rgb(255, 0, 136);
   --transition-delay: 0.2s;
-  
+
   font-family: 'Roboto', sans-serif;
 }
 
@@ -44,7 +44,9 @@ button {
   padding: 50px;
 }
 
-.task-form, .task-form-description, .task-form-button {
+.task-form,
+.task-form-description,
+.task-form-button {
   border: 1px solid black;
   padding: 15px 20px;
   border-radius: 20px;
@@ -62,17 +64,29 @@ button {
   width: 100%;
 }
 
-.task-form-description:focus {
-  outline: none;
+.task-form-scope {
+  border: none;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  text-align: center;
+  padding-inline: 5px;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .task-form-button {
   border-radius: 0 10px 10px 0;
-  border-left: none;
 }
 
-.task-form-button:hover, .task-form-description:hover {
+.task-form-button:hover,
+.task-form-description:hover,
+.task-form-description:focus,
+.task-form-scope:hover,
+.task-form-scope:focus {
   background-color: var(--main-color);
+  outline: none;
 }
 
 .task-list {
@@ -91,7 +105,31 @@ button {
 }
 
 .task-description {
-  grid-column: span 3;
+  grid-column: span 2;
+}
+
+.task-scope {
+  justify-self: end;
+}
+
+.task-scope-life {
+  color: #4CAF50;
+}
+
+.task-scope-hobby {
+  color: #FF5733;
+}
+
+.task-scope-work {
+  color: #3498DB;
+}
+
+.task-scope-study {
+  color: #9B59B6;
+}
+
+.task-scope-other {
+  color: #E74C3C;
 }
 
 .task-date {
