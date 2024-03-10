@@ -6,6 +6,7 @@ html {
   --second-color: rgb(255, 0, 136);
   --third-color: #fbda00;
   --completed-task-color: red;
+  --complete-edit-color: rgb(21, 181, 21);
   --transition-delay: 0.2s;
 
   font-family: 'Roboto', sans-serif;
@@ -16,6 +17,15 @@ html {
               fill var(--transition-delay),
               stroke var(--transition-delay),
               color var(--transition-delay);
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 svg *[fill] {
@@ -60,9 +70,9 @@ button {
   width: 100%;
 }
 
-.task-form-description {
+.task-form-description, .task-item-edit-description {
   border: 1px solid black;
-  padding-inline: 20px;
+  padding-inline: 8px;
   border-radius: 5px 0 0 5px;
   width: 100%;
 }
@@ -93,7 +103,9 @@ button {
 .task-form-description:hover,
 .task-form-description:focus,
 .task-form-scope:hover,
-.task-form-scope:focus {
+.task-form-scope:focus,
+.task-item-edit-description:hover,
+.task-item-edit-description:focus {
   background-color: var(--main-color);
   outline: none;
 }
@@ -190,10 +202,24 @@ button.task-remove:hover * {
 }
 
 .task-completed::after {
+  animation: appear 0.5s;
   opacity: 1;
 }
 
-/* .task-completed .task-description {
-  text-decoration: line-through;
-  font-weight: 700;
-} */
+.task-item-edit {
+  display: flex;
+  grid-column: span 2;
+  
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-item-edit-description {
+  flex: 1;
+  border-radius: 5px;
+  padding-block: 5px;
+}
+
+.task-item-edit-button:hover * {
+  fill: var(--complete-edit-color);
+}

@@ -58,7 +58,7 @@
  /**
    Упрощаем работу с изображениями
   */
- img {
+ img, svg {
    display: block;
    max-width: 100%;
  }

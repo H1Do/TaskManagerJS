@@ -21,6 +21,11 @@ const editSvgImage = `
                       <polyline points="21 14 21 22 2 22 2 3 10 3"></polyline>
                       </svg>
                      `;
+const completeSvgImage = `
+                      <svg fill="#000000" width="20" height="20" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M960 1807.059c-467.125 0-847.059-379.934-847.059-847.059 0-467.125 379.934-847.059 847.059-847.059 467.125 0 847.059 379.934 847.059 847.059 0 467.125-379.934 847.059-847.059 847.059M960 0C430.645 0 0 430.645 0 960s430.645 960 960 960 960-430.645 960-960S1489.355 0 960 0M854.344 1157.975 583.059 886.69l-79.85 79.85 351.135 351.133L1454.4 717.617l-79.85-79.85-520.206 520.208Z" fill-rule="evenodd"/>
+                      </svg>
+                      `
 
 export function initializeTaskManager() {
   const taskList = document.querySelector('.task-list');
@@ -105,12 +110,46 @@ function createTaskElement(task, deleteCallback) {
     taskElement.remove();
   });
 
+  const editFormElement = document.createElement('form');
+  editFormElement.className = 'task-item-edit';
+
+  const editAreaElement = document.createElement('input');
+  editAreaElement.className = 'task-item-edit-description';
+  editAreaElement.maxLength = 200;
+
+  const completeEditButtonElement = document.createElement('button');
+  completeEditButtonElement.className = 'task-item-edit-button';
+
+  completeEditButtonElement.innerHTML = completeSvgImage;
+  editFormElement.append(editAreaElement, completeEditButtonElement);
+
   const editButtonElement = document.createElement('button');
   editButtonElement.className = 'task-edit';
   editButtonElement.innerHTML = editSvgImage;
-  // editButtonElement.addEventListener('click', () => {
-    
-  // });
+  editButtonElement.addEventListener('click', () => {
+    descriptionElement.replaceWith(editFormElement);
+    editAreaElement.value = descriptionElement.textContent;
+    editButtonElement.hidden = true;
+    const wasCompleted = taskElement.classList.contains('task-completed');
+    taskElement.classList.remove('task-completed')
+
+    editFormElement.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if (editAreaElement.value === '') {
+        taskElement.remove();
+        deleteCallback(task);
+      }
+
+      editFormElement.replaceWith(descriptionElement);
+      descriptionElement.textContent = editAreaElement.value;
+      task.description = editAreaElement.value;
+      editButtonElement.hidden = false;
+      if (wasCompleted) {
+        taskElement.classList.add('task-completed');
+      }
+    })
+  });
 
   buttonsElement.append(editButtonElement, markButtonElement, removeButtonElement);
   taskElement.append(descriptionElement, scopeElement, timeElement, buttonsElement)
