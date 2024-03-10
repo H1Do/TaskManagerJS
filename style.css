@@ -4,13 +4,18 @@
 html {
   --main-color: aquamarine;
   --second-color: rgb(255, 0, 136);
+  --third-color: #fbda00;
+  --completed-task-color: red;
   --transition-delay: 0.2s;
 
   font-family: 'Roboto', sans-serif;
 }
 
 * {
-  transition: all var(--transition-delay);
+  transition: background var(--transition-delay),
+              fill var(--transition-delay),
+              stroke var(--transition-delay),
+              color var(--transition-delay);
 }
 
 svg *[fill] {
@@ -31,37 +36,39 @@ button {
   border: none;
 }
 
+#app {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
 
-  margin: 0 auto;
   min-height: 100svh;
   width: max(50%, 600px);
 
-  padding: 50px;
-}
-
-.task-form,
-.task-form-description,
-.task-form-button {
+  border-radius: 10px;
   border: 1px solid black;
-  padding: 15px 20px;
-  border-radius: 20px;
+  padding: 20px;
 }
 
 .task-form {
   display: flex;
-  justify-content: stretch;
   width: 100%;
-  padding: 20px;
 }
 
 .task-form-description {
-  border-radius: 10px 0 0 10px;
+  border: 1px solid black;
+  padding-inline: 20px;
+  border-radius: 5px 0 0 5px;
   width: 100%;
+}
+
+.task-form-description::placeholder {
+  color: gray;
 }
 
 .task-form-scope {
@@ -69,15 +76,16 @@ button {
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   text-align: center;
-  padding-inline: 5px;
 
+  padding: 5px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
 .task-form-button {
-  border-radius: 0 10px 10px 0;
+  border: 1px solid black;
+  border-radius: 0 5px 5px 0;
 }
 
 .task-form-button:hover,
@@ -108,6 +116,8 @@ button {
 
 .task-description {
   grid-column: span 2;
+  text-wrap: wrap;
+  word-wrap: break-word;
 }
 
 .task-scope {
@@ -149,25 +159,38 @@ button {
   stroke: var(--main-color);
 }
 
-.task-remove:hover * {
+button.task-remove:hover * {
   fill: var(--second-color);
   stroke: var(--second-color);
+}
+
+.task-edit:hover * {
+  stroke: var(--third-color);
 }
 
 .task-completed * {
-  color: var(--second-color);
-  fill: var(--second-color);
-  stroke: var(--second-color);
+  color: var(--completed-task-color);
+  stroke: var(--completed-task-color);
 }
 
-.task-completed::after {
+.task-completed .task-remove * {
+  fill: var(--completed-task-color);
+  stroke: var(--completed-task-color);
+}
+
+.task-item::after {
   content: '';
+  opacity: 0;
   position: absolute;
-  background-color: var(--second-color);
+  background-color: var(--completed-task-color);
   border-radius: 10px;
   top: 40%;
   width: 100%;
   height: 5px;
+}
+
+.task-completed::after {
+  opacity: 1;
 }
 
 /* .task-completed .task-description {

@@ -14,7 +14,8 @@
             type="text"
             name="task-form-description"
             class="task-form-description"
-            maxlength="50"
+            maxlength="200"
+            placeholder="Maximum of 200 characters"
             required
           />
           <select name="task-form-scope" class="task-form-scope" required>
@@ -30,7 +31,7 @@
             name="task-form-button"
             class="task-form-button"
           >
-            <image src="./assets/icons/plus-large-icon.svg" width="40" height="40">
+            <image src="./assets/icons/add-pictures-icon.svg" width="30" height="30">
           </button>
         </form>
         <ul class="task-list">
@@ -39,8 +40,9 @@
             <div class="task-scope task-scope-something">#something</div>
             <time datetime="04-03-2003" class="task-date">04-03-2003</time>
             <div class="task-buttons">
-              <button class="task-mark">Mark as completed</button>
-              <button class="task-remove">Remove task</button>
+              <button class="task-edit"><svg>...</svg></button>
+              <button class="task-mark"><svg>...</svg></button>
+              <button class="task-remove"><svg>...</svg></button>
             </div>
           </li> -->
         </ul>
